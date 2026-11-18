@@ -5,6 +5,17 @@ Run `npm run dev` (Python 3.10+ required), then open http://localhost:4173.
 The generated `storefront/` cache is excluded from Git. After cloning, pages and
 assets download on first use; run `npm run capture` to rebuild the local snapshot.
 
+## Vercel deployment
+
+Import this repository with the project root set to `.`. `vercel.json` sets the
+framework to Other, builds static browser assets, and routes pages to the Python
+function in `api/index.py`. Do not use the local `npm start` command as a build.
+
+The homepage is bundled, so it renders without fetching a remote page. Other
+pages use an ephemeral `/tmp` cache on Vercel; the function never writes into its
+read-only source directory. Images, videos, fonts and CDN scripts use external
+edge rewrites, keeping large media outside the Python function response.
+
 This project preserves the reference storefront's actual HTML, theme stylesheets,
 fonts, imagery, videos, responsive breakpoints and browser-side theme components.
 The completed capture contains 1,382 public page routes with no missing pages,

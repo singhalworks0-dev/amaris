@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "node prepare-deploy.cjs",
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 60,
+      "includeFiles": "{server.py,mirror.py,reference.html,replica.js}",
+      "excludeFiles": "{storefront/**,__pycache__/**,preview-*.png}"
+    }
+  },
+  "rewrites": [
+    { "source": "/cdn/:path*", "destination": "https://www.amarisjewels.com/cdn/:path*" },
+    { "source": "/_remote/cdn.shopify.com/:path*", "destination": "https://cdn.shopify.com/:path*" },
+    { "source": "/_remote/fonts.googleapis.com/:path*", "destination": "https://fonts.googleapis.com/:path*" },
+    { "source": "/_remote/fonts.gstatic.com/:path*", "destination": "https://fonts.gstatic.com/:path*" },
+    { "source": "/:path*", "destination": "/api?__path=/:path*" }
+  ]
+}

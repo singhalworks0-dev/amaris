@@ -1,6 +1,7 @@
 """Local storefront server with cached pages and on-demand public assets."""
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import argparse, json, urllib.error
+from urllib.parse import urlsplit
 from mirror import fetch, rewrite, ROOT
 
 class Handler(BaseHTTPRequestHandler):
@@ -10,6 +11,10 @@ class Handler(BaseHTTPRequestHandler):
                 data=(ROOT/'replica.js').read_bytes(); typ='application/javascript'
             elif self.path == '/health':
                 data=b'{"ok":true}'; typ='application/json'
+            elif urlsplit(self.path).path == '/' and not urlsplit(self.path).query:
+                # The committed homepage works on a cold serverless instance without network access.
+                typ='text/html; charset=utf-8'
+                data=rewrite((ROOT/'reference.html').read_bytes(),typ)
             else:
                 data,typ=fetch(self.path)
                 data=rewrite(data,typ)

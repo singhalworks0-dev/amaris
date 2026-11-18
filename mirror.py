@@ -1,9 +1,9 @@
 """Capture the public Amaris storefront, retaining the original theme and routes."""
-import concurrent.futures, gzip, hashlib, json, pathlib, re, threading, time
+import concurrent.futures, gzip, hashlib, json, os, pathlib, re, tempfile, threading, time
 import urllib.request, urllib.parse, xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parent
-CACHE = ROOT / 'storefront'
+CACHE = pathlib.Path(tempfile.gettempdir()) / 'amaris-storefront' if os.environ.get('VERCEL') else ROOT / 'storefront'
 ORIGIN = 'https://www.amarisjewels.com'
 lock = threading.Lock()
 
@@ -21,10 +21,12 @@ def fetch(path):
         host = urllib.parse.urlsplit(url).hostname
         if host not in ('cdn.shopify.com', 'fonts.googleapis.com', 'fonts.gstatic.com'):
             raise ValueError('Unsupported asset host')
-    for attempt in range(3):
+    attempts = 2 if os.environ.get('VERCEL') else 3
+    timeout = 20 if os.environ.get('VERCEL') else 50
+    for attempt in range(attempts):
         try:
             req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0', 'Accept-Encoding':'gzip'})
-            with urllib.request.urlopen(req, timeout=50) as response:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
                 data = response.read()
                 if response.headers.get('Content-Encoding') == 'gzip':
                     data = gzip.decompress(data)
@@ -38,7 +40,7 @@ def fetch(path):
             temp_meta.replace(meta)
             return data, typ
         except Exception:
-            if attempt == 2: raise
+            if attempt == attempts - 1: raise
             time.sleep(attempt + 1)
 
 def rewrite(data, typ):

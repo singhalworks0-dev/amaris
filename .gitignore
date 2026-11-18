@@ -2,3 +2,6 @@ __pycache__/
 node_modules/
 *.log
 storefront/
+public/
+.vercel/
+vercel-live-check.txt

@@ -1,0 +1,6 @@
+storefront/
+__pycache__/
+preview-*.png
+verification.json
+*-verification.json
+node_modules/
