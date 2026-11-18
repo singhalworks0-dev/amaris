@@ -1,0 +1,11 @@
+{
+  "name": "amaris-storefront-replica",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "python server.py --port 4173",
+    "start": "python server.py --port 4173",
+    "capture": "python mirror.py",
+    "check": "python -m py_compile mirror.py server.py repair_capture.py finalize_capture.py"
+  }
+}

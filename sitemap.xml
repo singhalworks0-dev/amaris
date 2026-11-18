@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_agentic_discovery.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_products_1.xml?from=5419786731675&amp;to=9420470288539</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_products_2.xml?from=9420480250011&amp;to=9456803676315</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_pages_1.xml?from=61816144027&amp;to=126561419419</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_collections_1.xml?from=201796124827&amp;to=381930471579</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_blogs_1.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/sitemap_articles_1.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_products_1.xml?from=5419786731675&amp;to=9420470288539</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_products_2.xml?from=9420480250011&amp;to=9456803676315</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_pages_1.xml?from=61816144027&amp;to=126561419419</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_collections_1.xml?from=201796124827&amp;to=381930471579</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_blogs_1.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.amarisjewels.com/en-int/sitemap_articles_1.xml</loc>
+  </sitemap>
+</sitemapindex>

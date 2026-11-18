@@ -1,0 +1,36 @@
+[
+  {
+    "name": "filter opens",
+    "visible": true,
+    "drawers": [
+      {
+        "id": "",
+        "class": "collection__filters collection__filters--top collection__filters--visible"
+      },
+      {
+        "id": "",
+        "class": "collection__filters-wrapper"
+      },
+      {
+        "id": "",
+        "class": "collection__filters-list"
+      },
+      {
+        "id": "",
+        "class": "collection__filters-list__inner"
+      }
+    ]
+  },
+  {
+    "name": "product offers accordion",
+    "expanded": {
+      "tag": "BUTTON",
+      "classes": "product__accordion",
+      "text": "\n    OFFERS\n    \n      \n\n    \n      20% off full-price jewels on orders of ₹20,00,000 or more.\n15% off full-price jewels on orders of ₹10,00,000 or more.\n10% off full-price jewels with no minimum spend.\nDiscount applied automatically at checkout. No code needed.\n    \n\n    \n      \n        Read more\n        Read less\n      \n    \n  \n    \n  "
+    }
+  },
+  {
+    "name": "mobile navigation",
+    "categoriesVisible": true
+  }
+]

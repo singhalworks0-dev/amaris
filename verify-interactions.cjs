@@ -1,0 +1,28 @@
+const {chromium}=require('C:/Users/Lenovo/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright');
+const fs=require('node:fs');
+(async()=>{
+ const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}); const checks=[];
+ await page.goto('http://localhost:4173/collections/earrings',{waitUntil:'domcontentloaded',timeout:90000});
+ await page.waitForTimeout(4000);
+ const filter=page.getByText('Filter',{exact:true}).filter({visible:true}).first();
+ await filter.click(); await page.waitForTimeout(2000);
+ const drawers=await page.locator('body *').evaluateAll(xs=>xs.filter(x=>{const r=x.getBoundingClientRect();return r.left>=-1&&r.left<10&&r.width>300&&r.width<500&&r.height>innerHeight*.8&&getComputedStyle(x).visibility!=='hidden'}).map(x=>({id:x.id,class:x.className})));
+ checks.push({name:'filter opens',visible:drawers.length>0,drawers});
+ await page.screenshot({path:'preview-filter.png'});
+ await page.keyboard.press('Escape');
+ await page.goto('http://localhost:4173/products/imperial-taj-earcuffs',{waitUntil:'domcontentloaded',timeout:90000});
+ await page.waitForTimeout(4000);
+ const offers=page.getByText('OFFERS',{exact:true}).first();
+ await offers.click(); await page.waitForTimeout(500);
+ checks.push({name:'product offers accordion',expanded:await offers.evaluate(x=>({tag:x.tagName,classes:x.parentElement.className,text:x.parentElement.textContent.slice(0,450)}))});
+ await page.screenshot({path:'preview-product-accordion.png'});
+ console.log(JSON.stringify(checks,null,2));
+ await page.goto('http://localhost:4173/',{waitUntil:'domcontentloaded',timeout:90000});
+ await page.setViewportSize({width:390,height:844}); await page.waitForTimeout(2000);
+ await page.getByRole('button',{name:'Open navigation menu'}).click(); await page.waitForTimeout(700);
+ await page.screenshot({path:'preview-mobile-menu.png'});
+ checks.push({name:'mobile navigation',categoriesVisible:await page.getByRole('link',{name:'CATEGORIES',exact:true}).last().isVisible()});
+ fs.writeFileSync('interaction-verification.json',JSON.stringify(checks,null,2));
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

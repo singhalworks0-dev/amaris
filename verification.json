@@ -1,0 +1,79 @@
+[
+  {
+    "page": "home",
+    "status": 200,
+    "title": "Amaris Jewels | Jewels for the Jewel",
+    "horizontalOverflow": false,
+    "heading": []
+  },
+  {
+    "page": "mobile-home",
+    "horizontalOverflow": false,
+    "buttons": [
+      {
+        "label": "Support Options",
+        "text": ""
+      },
+      {
+        "label": null,
+        "text": "Close"
+      },
+      {
+        "label": null,
+        "text": "See More"
+      },
+      {
+        "label": null,
+        "text": "See More"
+      },
+      {
+        "label": null,
+        "text": "See More"
+      },
+      {
+        "label": null,
+        "text": "See More"
+      },
+      {
+        "label": null,
+        "text": "Open navigation menu"
+      },
+      {
+        "label": "Search",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "page": "collection",
+    "status": 200,
+    "title": "Earrings | Luxury Fine Jewellery Collection | Amaris Jewels",
+    "horizontalOverflow": false,
+    "heading": []
+  },
+  {
+    "page": "product",
+    "status": 200,
+    "title": "Imperial Taj Earcuffs | AMARIS JEWELS | Fine Jewelry",
+    "horizontalOverflow": false,
+    "heading": [
+      "Imperial Taj Earcuffs"
+    ]
+  },
+  {
+    "page": "story",
+    "status": 200,
+    "title": "Our Story | AMARIS Jewels – From Vision to Fine Jewellery",
+    "horizontalOverflow": false,
+    "heading": [
+      "\n  \nAMARIS STORY\n"
+    ]
+  },
+  {
+    "page": "boutiques",
+    "status": 200,
+    "title": "Our Stores | Delhi | Gurgaon | Hyderabad | Amaris Jewels",
+    "horizontalOverflow": false,
+    "heading": []
+  }
+]

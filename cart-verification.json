@@ -1,0 +1,6 @@
+{
+  "add": true,
+  "quantity": true,
+  "persistence": true,
+  "remove": true
+}
