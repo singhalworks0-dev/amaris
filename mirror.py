@@ -65,7 +65,8 @@ def rewrite(data, typ):
             seen_interactions = True
             return script
         s = re.sub(r'<script\b[^>]*>.*?</script>', dedupe, s, flags=re.S|re.I)
-        s = s.replace('</head>', '<script src="/replica.js" defer></script></head>')
+        # Run before theme/app scripts so dynamically created navigation is localized too.
+        s = re.sub(r'<head(?:\s[^>]*)?>', lambda m: m.group(0) + '<script src="/replica.js"></script>', s, count=1, flags=re.I)
     return s.encode()
 
 def assets(text):

@@ -1,3 +1,62 @@
+/* Keep original-store navigation and dynamically loaded links on the demo host. */
+function localStoreUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value, location.href);
+    const host = url.hostname.toLowerCase();
+    const shop = window.Shopify?.shop?.toLowerCase();
+    if (host === 'amarisjewels.com' || host.endsWith('.amarisjewels.com') || (shop && host === shop)) {
+      return location.origin + url.pathname + url.search + url.hash;
+    }
+  } catch { /* Non-URL actions such as telephone and email links stay unchanged. */ }
+  return null;
+}
+function localizeNode(node) {
+  if (node.nodeType !== 1) return;
+  for (const attr of ['href', 'action']) {
+    const value = node.getAttribute(attr);
+    const local = localStoreUrl(value);
+    if (local && local !== value) node.setAttribute(attr, local);
+  }
+  node.querySelectorAll('a[href],area[href],form[action],base[href]').forEach(child => {
+    for (const attr of ['href', 'action']) {
+      const value = child.getAttribute(attr);
+      const local = localStoreUrl(value);
+      if (local && local !== value) child.setAttribute(attr, local);
+    }
+  });
+}
+const navigationObserver = new MutationObserver(records => {
+  for (const record of records) {
+    if (record.type === 'attributes') localizeNode(record.target);
+    else record.addedNodes.forEach(localizeNode);
+  }
+});
+navigationObserver.observe(document.documentElement, {subtree:true, childList:true, attributes:true, attributeFilter:['href','action']});
+window.addEventListener('click', event => {
+  const anchor = event.target.closest?.('a[href],area[href]');
+  const local = anchor && localStoreUrl(anchor.getAttribute('href'));
+  if (!local) return;
+  anchor.href = local;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  if (event.ctrlKey || event.metaKey || anchor.target === '_blank') window.open(local, '_blank', 'noopener');
+  else location.assign(local);
+}, true);
+const originalOpen = window.open.bind(window);
+window.open = (url, ...args) => originalOpen(localStoreUrl(url) || url, ...args);
+const originalFetch = window.fetch.bind(window);
+window.fetch = (input, options) => {
+  const local = localStoreUrl(input instanceof Request ? input.url : input);
+  if (local) input = input instanceof Request ? new Request(local, input) : local;
+  return originalFetch(input, options);
+};
+const originalXhrOpen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function (method, url, ...args) {
+  return originalXhrOpen.call(this, method, localStoreUrl(url) || url, ...args);
+};
+document.addEventListener('submit', event => localizeNode(event.target), true);
+
 /* Keep the original drawer UI, with browser-local cart state for the preview. */
 const cartKey = 'amaris-preview-cart';
 const readCart = () => { try { return JSON.parse(localStorage.getItem(cartKey) || '[]'); } catch { return []; } };

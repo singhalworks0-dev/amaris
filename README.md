@@ -15,6 +15,9 @@ The homepage is bundled, so it renders without fetching a remote page. Other
 pages use an ephemeral `/tmp` cache on Vercel; the function never writes into its
 read-only source directory. Images, videos, fonts and CDN scripts use external
 edge rewrites, keeping large media outside the Python function response.
+Internal navigation is localized both in page/theme responses and in dynamically
+inserted links, forms and browser requests, so storefront pages remain on the
+deployment's own domain.
 
 This project preserves the reference storefront's actual HTML, theme stylesheets,
 fonts, imagery, videos, responsive breakpoints and browser-side theme components.

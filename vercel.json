@@ -11,6 +11,8 @@
     }
   },
   "rewrites": [
+    { "source": "/", "destination": "/api?__path=/" },
+    { "source": "/cdn/shop/t/:path*", "destination": "/api?__path=/cdn/shop/t/:path*" },
     { "source": "/cdn/:path*", "destination": "https://www.amarisjewels.com/cdn/:path*" },
     { "source": "/_remote/cdn.shopify.com/:path*", "destination": "https://cdn.shopify.com/:path*" },
     { "source": "/_remote/fonts.googleapis.com/:path*", "destination": "https://fonts.googleapis.com/:path*" },
